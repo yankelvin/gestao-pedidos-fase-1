@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <UserSecretsId>89c6fe95-b1d9-44f8-9955-974fbc486ff0</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DrivenAdapters\DatabaseAdapters\Configuration\" />
+    <Folder Include="DrivenAdapters\DatabaseAdapters\Entities\" />
+    <Folder Include="DrivenAdapters\DatabaseAdapters\Migrations\" />
+    <Folder Include="DrivenAdapters\ThirdPartyAdapters\Configuration\" />
+    <Folder Include="DrivenAdapters\ThirdPartyAdapters\DTOs\" />
+    <Folder Include="DrivingAdapters\Configuration\" />
+    <Folder Include="DrivingAdapters\RestAdapters\DTOs\Mappings\" />
+  </ItemGroup>
+
+</Project>
