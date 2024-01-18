@@ -15,14 +15,4 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DrivenAdapters\DatabaseAdapters\Configuration\" />
-    <Folder Include="DrivenAdapters\DatabaseAdapters\Entities\" />
-    <Folder Include="DrivenAdapters\DatabaseAdapters\Migrations\" />
-    <Folder Include="DrivenAdapters\ThirdPartyAdapters\Configuration\" />
-    <Folder Include="DrivenAdapters\ThirdPartyAdapters\DTOs\" />
-    <Folder Include="DrivingAdapters\Configuration\" />
-    <Folder Include="DrivingAdapters\RestAdapters\DTOs\Mappings\" />
-  </ItemGroup>
-
 </Project>
