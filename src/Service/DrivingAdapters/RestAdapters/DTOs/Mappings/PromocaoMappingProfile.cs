@@ -8,13 +8,20 @@ namespace Service.DrivingAdapters.RestAdapters.DTOs.Mappings
     {
         public PromocaoMappingProfile()
         {
-            CreateMap<ItemPromocao, ItemPromocaoDTO>();
-            CreateMap<HistoricoUsoPromocao, HistoricoUsoPromocaoDTO>();
-
             CreateMap<Promocao, PromocaoDTO>();
             CreateMap<Promocao, PromocaoEntity>();
             CreateMap<PromocaoEntity, Promocao>().ConstructUsing(p => new Promocao(p.Id, p.Texto, p.Status));
             CreateMap<PromocaoDTO, Promocao>().ConstructUsing(p => new Promocao(p.Texto, p.Status));
+
+            CreateMap<ItemPromocao, ItemPromocaoDTO>();
+            CreateMap<ItemPromocao, ItemPromocaoEntity>();
+            CreateMap<ItemPromocaoEntity, ItemPromocao>().ConstructUsing(p => new ItemPromocao(p.IdPromocao, p.IdProduto, p.Desconto));
+            CreateMap<ItemPromocaoDTO, ItemPromocao>().ConstructUsing(p => new ItemPromocao(p.IdPromocao, p.IdProduto, p.Desconto));
+
+            CreateMap<HistoricoUsoPromocao, HistoricoUsoPromocaoDTO>();
+            CreateMap<HistoricoUsoPromocao, HistoricoUsoPromocaoEntity>();
+            CreateMap<HistoricoUsoPromocaoEntity, HistoricoUsoPromocao>().ConstructUsing(p => new HistoricoUsoPromocao(p.IdPromocao, p.IdCliente, p.Utilizado));
+            CreateMap<HistoricoUsoPromocaoDTO, HistoricoUsoPromocao>().ConstructUsing(p => new HistoricoUsoPromocao(p.IdPromocao, p.IdCliente, p.Utilizado));
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using Domain.Models.Produtos;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Service.DrivenAdapters.DatabaseAdapters.Entities.Promocoes
