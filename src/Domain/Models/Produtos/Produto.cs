@@ -6,9 +6,9 @@ namespace Domain.Models.Produtos
     {
         public string Nome { get; private set; }
         public bool Status { get; private set; }
-        public decimal Preco { get; private set; }
+        public double Preco { get; private set; }
 
-        public Produto(string nome, bool status, decimal preco)
+        public Produto(string nome, bool status, double preco)
         {
             Nome = nome;
             Status = status;

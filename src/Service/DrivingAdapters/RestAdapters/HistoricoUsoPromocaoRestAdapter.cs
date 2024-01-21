@@ -14,12 +14,15 @@ namespace Service.DrivingAdapters.RestAdapters
     public class HistoricoUsoPromocaoRestAdapter : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly ICadastrarHistoricoUsoPromocao _cadastrarHistoricoUsoPromocao1;
+        private readonly ICadastrarHistoricoUsoPromocao _cadastrarHistoricoUsoPromocao;
+        private readonly IObterHistoricoUsoPromocao _obterHistoricoUsoPromocao;
 
-        public HistoricoUsoPromocaoRestAdapter(IMapper mapper, ICadastrarHistoricoUsoPromocao cadastrarHistoricoUsoPromocao)
+        public HistoricoUsoPromocaoRestAdapter(IMapper mapper, ICadastrarHistoricoUsoPromocao cadastrarHistoricoUsoPromocao,
+                                               IObterHistoricoUsoPromocao obterHistoricoUsoPromocao)
         {
             _mapper = mapper;
-            _cadastrarHistoricoUsoPromocao1 = cadastrarHistoricoUsoPromocao;
+            _cadastrarHistoricoUsoPromocao = cadastrarHistoricoUsoPromocao;
+            _obterHistoricoUsoPromocao = obterHistoricoUsoPromocao;
         }
 
         /// <summary>
@@ -33,7 +36,22 @@ namespace Service.DrivingAdapters.RestAdapters
         public async Task Post([FromBody] HistoricoUsoPromocaoDTO historicoUsoPromocaoDTO)
         {
             var historicoUsoPromocao = _mapper.Map<HistoricoUsoPromocao>(historicoUsoPromocaoDTO);
-            await _cadastrarHistoricoUsoPromocao1.Executar(historicoUsoPromocao);
+            await _cadastrarHistoricoUsoPromocao.Executar(historicoUsoPromocao);
+        }
+
+        /// <summary>
+        /// Obter historico uso promocao por id do cliente
+        /// </summary>
+        /// <param name="clienteId" example="432">Identificador do cliente para buscar</param>
+        /// <response code="200">OK, Historico consultado</response>
+        /// <response code="404">Historico nao encontrado</response>
+        [HttpGet("{clienteId:int:required}")]
+        [ProducesResponseType(typeof(HistoricoUsoPromocaoDTO), Status200OK)]
+        [ProducesResponseType(typeof(void), Status404NotFound)]
+        public async Task<IEnumerable<HistoricoUsoPromocaoDTO>> Get(int clienteId)
+        {
+            var historico = await _obterHistoricoUsoPromocao.Executar(clienteId);
+            return _mapper.Map<IEnumerable<HistoricoUsoPromocaoDTO>>(historico);
         }
     }
 }

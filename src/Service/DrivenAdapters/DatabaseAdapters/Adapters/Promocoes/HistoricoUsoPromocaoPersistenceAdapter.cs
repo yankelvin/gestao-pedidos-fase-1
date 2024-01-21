@@ -22,5 +22,12 @@ namespace Service.DrivenAdapters.DatabaseAdapters.Adapters.Promocoes
             await _promocaoContext.HistoricosUsoPromocoes.AddAsync(entity);
             await _promocaoContext.SaveChangesAsync();
         }
+
+        public Task<IEnumerable<HistoricoUsoPromocao>> ObterPorCliente(int clienteId)
+        {
+            var entities = _promocaoContext.HistoricosUsoPromocoes.Where(i => i.idcliente.Equals(clienteId));
+            var historico = _mapper.Map<IEnumerable<HistoricoUsoPromocao>>(entities);
+            return Task.FromResult(historico);
+        }
     }
 }

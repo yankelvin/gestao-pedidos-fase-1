@@ -32,21 +32,21 @@ namespace Service.DrivenAdapters.DatabaseAdapters.Adapters.Promocoes
 
         public Task<IEnumerable<ItemPromocao>> ObterPorPromocao(int promocaoId)
         {
-            var entities = _promocaoContext.ItensPromocoes.Where(i => i.IdPromocao.Equals(promocaoId));
-            var promocoes = _mapper.Map<IEnumerable<ItemPromocao>>(entities);
-            return Task.FromResult(promocoes);
+            var entities = _promocaoContext.ItensPromocoes.Where(i => i.idpromocao.Equals(promocaoId));
+            var itensPromocao = _mapper.Map<IEnumerable<ItemPromocao>>(entities);
+            return Task.FromResult(itensPromocao);
         }
 
         public Task<IEnumerable<ItemPromocao>> ObterPorProduto(int produtoId)
         {
-            var entities = _promocaoContext.ItensPromocoes.Where(i => i.IdProduto.Equals(produtoId));
-            var promocoes = _mapper.Map<IEnumerable<ItemPromocao>>(entities);
-            return Task.FromResult(promocoes);
+            var entities = _promocaoContext.ItensPromocoes.Where(i => i.idproduto.Equals(produtoId));
+            var itensPromocao = _mapper.Map<IEnumerable<ItemPromocao>>(entities);
+            return Task.FromResult(itensPromocao);
         }
 
         public async Task Remover(int promocaoId)
         {
-            var entity = _promocaoContext.ItensPromocoes.FirstOrDefault(p => p.IdPromocao.Equals(promocaoId));
+            var entity = _promocaoContext.ItensPromocoes.FirstOrDefault(p => p.idpromocao.Equals(promocaoId));
 
             if (entity != null)
             {

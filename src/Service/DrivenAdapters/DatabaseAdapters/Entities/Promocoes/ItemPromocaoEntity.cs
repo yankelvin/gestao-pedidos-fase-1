@@ -3,12 +3,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Service.DrivenAdapters.DatabaseAdapters.Entities.Promocoes
 {
-    [Table("ItemPromocao")]
-    [PrimaryKey(nameof(IdPromocao), nameof(IdProduto))]
+    [Table("item_promocao")]
+    [PrimaryKey(nameof(idpromocao), nameof(idproduto))]
     public class ItemPromocaoEntity
     {
-        public int IdPromocao { get; set; }
-        public int IdProduto { get; set; }
-        public decimal Desconto { get; set; }
+        public int idpromocao { get; set; }
+        public int idproduto { get; set; }
+        public double desconto { get; set; }
     }
 }

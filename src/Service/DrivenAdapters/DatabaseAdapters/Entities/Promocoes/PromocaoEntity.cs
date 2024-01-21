@@ -6,7 +6,7 @@ namespace Service.DrivenAdapters.DatabaseAdapters.Entities.Promocoes
     [Table("promocao")]
     public class PromocaoEntity : Entity
     {
-        public string Texto { get; set; }
-        public bool Status { get; set; }
+        public string texto { get; set; }
+        public bool status { get; set; }
     }
 }
