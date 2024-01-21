@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Exceptions
+namespace Service.DrivenAdapters.ThirdPartyAdapters.Configuration
 {
-    internal class Class1
+    internal class Configurations
     {
     }
 }

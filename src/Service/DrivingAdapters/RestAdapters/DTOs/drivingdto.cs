@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Exceptions
+namespace Service.DrivingAdapters.RestAdapters.DTOs
 {
-    internal class Class1
+    internal class Configurations
     {
     }
 }

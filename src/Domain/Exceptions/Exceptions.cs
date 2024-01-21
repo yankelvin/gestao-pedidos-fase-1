@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Exceptions
 {
-    internal class Class1
+    internal class Exceptions
     {
     }
 }
