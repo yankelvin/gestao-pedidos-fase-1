@@ -11,23 +11,28 @@ namespace Service.DrivingAdapters.RestAdapters
     [ApiController]
     [Produces(MediaTypeNames.Application.Json)]
     [Route("api/promocoes")]
-    public class PandasRestAdapter : ControllerBase
+    public class PromocaoRestAdapter : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly ICadastrarPromocao _cadastrarPromocao;
         private readonly IObterPromocao _obterPromocao;
+        private readonly ICadastrarPromocao _cadastrarPromocao;
+        private readonly IAtualizarPromocao _atualizarPromocao;
+        private readonly IRemoverPromocao _removerPromocao;
 
-        public PandasRestAdapter(IMapper mapper, ICadastrarPromocao cadastrarPromocao, IObterPromocao obterPromocao)
+        public PromocaoRestAdapter(IMapper mapper, ICadastrarPromocao cadastrarPromocao, IObterPromocao obterPromocao,
+                                 IAtualizarPromocao atualizarPromocao, IRemoverPromocao removerPromocao)
         {
             _mapper = mapper;
-            _cadastrarPromocao = cadastrarPromocao;
             _obterPromocao = obterPromocao;
+            _cadastrarPromocao = cadastrarPromocao;
+            _atualizarPromocao = atualizarPromocao;
+            _removerPromocao = removerPromocao;
         }
 
         /// <summary>
         /// Obter promocao por id
         /// </summary>
-        /// <param name="promocaoId" example="54322345-5432-2345-5432-543223455432">Identificador da promocao para buscar</param>
+        /// <param name="promocaoId" example="432">Identificador da promocao para buscar</param>
         /// <response code="200">OK, Promocao consultada</response>
         /// <response code="404">Promocao nao encontrada</response>
         [HttpGet("{promocaoId:int:required}")]
@@ -35,8 +40,63 @@ namespace Service.DrivingAdapters.RestAdapters
         [ProducesResponseType(typeof(void), Status404NotFound)]
         public async Task<PromocaoDTO> Get(int promocaoId)
         {
-            Promocao promocao = await _obterPromocao.Executar(promocaoId);
+            var promocao = await _obterPromocao.Executar(promocaoId);
             return _mapper.Map<PromocaoDTO>(promocao);
+        }
+
+        /// <summary>
+        /// Obter promocoes
+        /// </summary>
+        /// <response code="200">OK, Promocao consultada</response>
+        /// <response code="404">Promocao nao encontrada</response>
+        [HttpGet]
+        [ProducesResponseType(typeof(PromocaoDTO), Status200OK)]
+        [ProducesResponseType(typeof(void), Status404NotFound)]
+        public async Task<IEnumerable<PromocaoDTO>> Get()
+        {
+            var promocoes = await _obterPromocao.Executar();
+            return _mapper.Map<IEnumerable<PromocaoDTO>>(promocoes);
+        }
+
+        /// <summary>
+        /// Cadastrar promocao
+        /// </summary>
+        /// <response code="200">OK, Promocao cadastrada</response>
+        /// <response code="500">Erro ao cadastrar promocao</response>
+        [HttpPost]
+        [ProducesResponseType(typeof(PromocaoDTO), Status200OK)]
+        [ProducesResponseType(typeof(void), Status404NotFound)]
+        public async Task Post([FromBody] PromocaoDTO promocaoDTO)
+        {
+            var promocao = _mapper.Map<Promocao>(promocaoDTO);
+            await _cadastrarPromocao.Executar(promocao);
+        }
+
+        /// <summary>
+        /// Atualizar promocao
+        /// </summary>
+        /// <response code="200">OK, Promocao atualizada</response>
+        /// <response code="500">Erro ao atualizar promocao</response>
+        [HttpPut]
+        [ProducesResponseType(typeof(PromocaoDTO), Status200OK)]
+        [ProducesResponseType(typeof(void), Status404NotFound)]
+        public async Task Put([FromBody] PromocaoDTO promocaoDTO)
+        {
+            var promocao = _mapper.Map<Promocao>(promocaoDTO);
+            await _atualizarPromocao.Executar(promocao);
+        }
+
+        /// <summary>
+        /// Remover promocao
+        /// </summary>
+        /// <response code="200">OK, Promocao removida</response>
+        /// <response code="500">Erro ao remover promocao</response>
+        [HttpDelete("{promocaoId:int:required}")]
+        [ProducesResponseType(typeof(PromocaoDTO), Status200OK)]
+        [ProducesResponseType(typeof(void), Status404NotFound)]
+        public async Task Delete(int promocaoId)
+        {
+            await _removerPromocao.Executar(promocaoId);
         }
     }
 }
