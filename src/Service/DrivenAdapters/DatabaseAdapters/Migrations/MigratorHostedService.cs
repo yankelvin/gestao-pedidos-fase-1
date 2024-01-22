@@ -16,6 +16,8 @@ namespace Service.DrivenAdapters.DataBaseAdapters.Migrations
         {
             using IServiceScope scope = _serviceProvider.CreateScope();
             PromocaoContext promocaoContext = scope.ServiceProvider.GetRequiredService<PromocaoContext>();
+            ProdutoContext produtoContext = scope.ServiceProvider.GetRequiredService<ProdutoContext>();
+            UsuarioContext usuarioContext = scope.ServiceProvider.GetRequiredService<UsuarioContext>();
 
             //await promocaoContext.Database.MigrateAsync(cancellationToken: cancellationToken);
         }
