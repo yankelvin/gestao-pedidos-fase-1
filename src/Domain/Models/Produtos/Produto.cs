@@ -1,18 +1,20 @@
-﻿using Domain.Exceptions;
-
 namespace Domain.Models.Produtos
 {
     public class Produto : Modelo
     {
         public string Nome { get; private set; }
-        public bool Status { get; private set; }
         public double Preco { get; private set; }
+        public bool Ativo { get; private set; }
+        public int IdCategoria { get; private set; }
+        public virtual CategoriaProduto Categoria { get; private set; }
 
-        public Produto(string nome, bool status, double preco)
+        public Produto(int id, string nome, bool ativo, int idCategoria, double preco)
         {
+            Id = id;
             Nome = nome;
-            Status = status;
+            Ativo = ativo;
             Preco = preco;
+            IdCategoria = idCategoria;
         }
     }
 }

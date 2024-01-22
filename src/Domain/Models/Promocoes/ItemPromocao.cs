@@ -21,9 +21,9 @@ namespace Domain.Models.Promocoes
         public double ObterPrecoComDesconto()
         {
             if (Desconto < 1)
-                return Produto.Preco - Produto.Preco * Desconto;
+                return Convert.ToDecimal(Produto.Preco) - Convert.ToDecimal(Produto.Preco) * Desconto;
 
-            return Produto.Preco - Desconto;
+            return Convert.ToDecimal(Produto.Preco) - Desconto;
         }
     }
 }
