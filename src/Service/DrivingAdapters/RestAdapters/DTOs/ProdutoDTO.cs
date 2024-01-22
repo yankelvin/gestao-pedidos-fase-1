@@ -3,10 +3,10 @@
     public class ProdutoDTO
     {
         public int Id { get; set; }
-        public string Nome { get; private set; }
-        public decimal Preco { get; private set; }
-        public bool Ativo { get; private set; }
-        public int IdCategoria { get; private set; }
+        public string Nome { get; set; }
+        public double Preco { get; set; }
+        public bool Ativo { get; set; }
+        public int IdCategoria { get; set; }
     }
 
     public class CategoriaProdutoDTO

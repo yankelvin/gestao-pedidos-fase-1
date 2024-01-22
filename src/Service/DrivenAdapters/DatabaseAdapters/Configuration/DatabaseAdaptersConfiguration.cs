@@ -15,6 +15,8 @@ namespace Service.DrivenAdapters.DataBaseAdapters.Configuration
         public static IServiceCollection AddDatabase(this IServiceCollection services, string databaseConnection)
         {
             services.AddDbContext<PromocaoContext>(options => options.UseLazyLoadingProxies().UseNpgsql(databaseConnection).UseSnakeCaseNamingConvention());
+            services.AddDbContext<ProdutoContext>(options => options.UseLazyLoadingProxies().UseNpgsql(databaseConnection).UseSnakeCaseNamingConvention());
+            services.AddDbContext<UsuarioContext>(options => options.UseLazyLoadingProxies().UseNpgsql(databaseConnection).UseSnakeCaseNamingConvention());
             services.AddHostedService<MigratorHostedService>();
 
             services.AddTransient<IPromocaoPersistencePort, PromocaoPersistenceAdapter>();

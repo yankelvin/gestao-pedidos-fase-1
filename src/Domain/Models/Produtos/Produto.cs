@@ -3,12 +3,12 @@
     public class Produto : Modelo
     {
         public string Nome { get; private set; }
-        public decimal Preco { get; private set; }
+        public double Preco { get; private set; }
         public bool Ativo { get; private set; }
         public int IdCategoria { get; private set; }
         public virtual CategoriaProduto Categoria { get; private set; }
 
-        public Produto(int id, string nome, bool ativo, int idCategoria, decimal preco)
+        public Produto(int id, string nome, bool ativo, int idCategoria, double preco)
         {
             Id = id;
             Nome = nome;

@@ -5,7 +5,7 @@ namespace Service.DrivenAdapters.DatabaseAdapters
 {
     public class UsuarioContext : DbContext
     {
-        public UsuarioContext(DbContextOptions<ProdutoContext> options) : base(options) { }
+        public UsuarioContext(DbContextOptions<UsuarioContext> options) : base(options) { }
         public DbSet<UsuarioEntity> Usuarios { get; set; }
     }
 }

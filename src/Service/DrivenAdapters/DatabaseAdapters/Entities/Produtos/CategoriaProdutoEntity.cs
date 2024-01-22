@@ -3,7 +3,7 @@ using Service.DrivenAdapters.DataBaseAdapters.Entities;
 
 namespace Service.DrivenAdapters.DatabaseAdapters.Entities.Produtos
 {
-    [Table("categoriaProduto")]
+    [Table("categoriaproduto")]
     public class CategoriaProdutoEntity : Entity
     {
         public string Nome { get; set; }

@@ -29,7 +29,7 @@ namespace Service.DrivingAdapters.RestAdapters
         /// <summary>
         /// Obter produto por id
         /// </summary>
-        /// <param name="promocaoId" example="54322345-5432-2345-5432-543223455432">Identificador do produto para buscar</param>
+        /// <param name="produtoId" example="54322345-5432-2345-5432-543223455432">Identificador do produto para buscar</param>
         /// <response code="200">OK, Produto consultado</response>
         /// <response code="404">Produto nao encontrado</response>
         [HttpGet("{produtoId:int:required}")]
@@ -39,6 +39,62 @@ namespace Service.DrivingAdapters.RestAdapters
         {
             Produto produto = await _obterProduto.Executar(produtoId);
             return _mapper.Map<ProdutoDTO>(produto);
+        }
+
+        /// <summary>
+        /// Obter produtos por id da categoria
+        /// </summary>
+        /// <param name="categoriaId" example="432">Identificador da categoria para buscar</param>
+        /// <response code="200">OK, Produtos por categoria consultado</response>
+        /// <response code="404">Produtos nao encontrados para categoria</response>
+        [HttpGet("categoria/{categoriaId:int:required}")]
+        [ProducesResponseType(typeof(ProdutoDTO), Status200OK)]
+        [ProducesResponseType(typeof(void), Status404NotFound)]
+        public async Task<IEnumerable<ProdutoDTO>> GetPorCategoria(int categoriaId)
+        {
+            var produtos = await _obterProduto.ExecutarPorCategoria(categoriaId);
+            return _mapper.Map<IEnumerable<ProdutoDTO>>(produtos);
+        }
+
+        /// <summary>
+        /// Cadastrar produto
+        /// </summary>
+        /// <response code="200">OK, produto cadastrada</response>
+        /// <response code="500">Erro ao cadastrar produto</response>
+        [HttpPost]
+        [ProducesResponseType(typeof(ProdutoDTO), Status200OK)]
+        [ProducesResponseType(typeof(void), Status404NotFound)]
+        public async Task Post([FromBody] ProdutoDTO produtoDTO)
+        {
+            var produto = _mapper.Map<Produto>(produtoDTO);
+            await _cadastrarProduto.Executar(produto);
+        }
+
+        /// <summary>
+        /// Atualizar produto
+        /// </summary>
+        /// <response code="200">OK, Produto atualizado</response>
+        /// <response code="500">Erro ao atualizar produto</response>
+        [HttpPut]
+        [ProducesResponseType(typeof(ProdutoDTO), Status200OK)]
+        [ProducesResponseType(typeof(void), Status404NotFound)]
+        public async Task Put([FromBody] ProdutoDTO promocaoDTO)
+        {
+            var produto = _mapper.Map<Produto>(promocaoDTO);
+            await _atualizarProduto.Executar(produto);
+        }
+
+        /// <summary>
+        /// Remover produto
+        /// </summary>
+        /// <response code="200">OK, Produto removido</response>
+        /// <response code="500">Erro ao remover produto</response>
+        [HttpDelete("{produtoId:int:required}")]
+        [ProducesResponseType(typeof(ProdutoDTO), Status200OK)]
+        [ProducesResponseType(typeof(void), Status404NotFound)]
+        public async Task Delete(int produtoId)
+        {
+            await _removerProduto.Executar(produtoId);
         }
     }
 }
