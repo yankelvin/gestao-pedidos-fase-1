@@ -18,6 +18,7 @@ namespace Service.DrivingAdapters.Configuration
             services.AddTransient<ICadastrarPromocao, CadastrarPromocao>();
             services.AddTransient<IObterItemPromocao, ObterItemPromocao>();
             services.AddTransient<IObterPromocao, ObterPromocao>();
+            services.AddTransient<IObterHistoricoUsoPromocao, ObterHistoricoUsoPromocao>();
             services.AddTransient<IRemoverItemPromocao, RemoverItemPromocao>();
             services.AddTransient<IRemoverPromocao, RemoverPromocao>();
 

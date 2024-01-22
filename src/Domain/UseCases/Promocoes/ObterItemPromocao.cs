@@ -8,9 +8,9 @@ namespace Domain.UseCases.Promocoes
     {
         private readonly IItemPromocaoPersistencePort _itemPromocaoPersistencePort;
 
-        public ObterItemPromocao(IItemPromocaoPersistencePort promocaoPersistencePort)
+        public ObterItemPromocao(IItemPromocaoPersistencePort itemPromocaoPersistencePort)
         {
-            _itemPromocaoPersistencePort = promocaoPersistencePort;
+            _itemPromocaoPersistencePort = itemPromocaoPersistencePort;
         }
 
         public Task<IEnumerable<ItemPromocao>> ExecutarPorPromocao(int promocaoId)

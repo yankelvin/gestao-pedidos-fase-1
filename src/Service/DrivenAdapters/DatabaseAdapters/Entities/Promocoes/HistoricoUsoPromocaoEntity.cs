@@ -1,16 +1,14 @@
-﻿using Domain.Models.Produtos;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Service.DrivenAdapters.DatabaseAdapters.Entities.Promocoes
 {
-    [Table("HistoricoUsoPromocao")]
-    [PrimaryKey(nameof(IdPromocao), nameof(IdCliente))]
+    [Table("historico_uso_promocao")]
+    [PrimaryKey(nameof(idpromocao), nameof(idcliente))]
     public class HistoricoUsoPromocaoEntity
     {
-        public int IdPromocao { get; set; }
-        public int IdCliente { get; set; }
-        public bool Utilizado { get; set; }
+        public int idpromocao { get; set; }
+        public int idcliente { get; set; }
+        public bool utilizado { get; set; }
     }
 }

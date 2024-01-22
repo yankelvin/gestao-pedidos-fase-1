@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Domain.Models.Promocoes;
 using Domain.Ports.Driven.Promocoes;
-using Service.DrivenAdapters.DatabaseAdapters;
 using Service.DrivenAdapters.DatabaseAdapters.Entities.Promocoes;
 
 namespace Service.DrivenAdapters.DatabaseAdapters.Adapters.Promocoes
@@ -21,12 +20,14 @@ namespace Service.DrivenAdapters.DatabaseAdapters.Adapters.Promocoes
         {
             var entity = _mapper.Map<PromocaoEntity>(promocao);
             await _promocaoContext.Promocoes.AddAsync(entity);
+            await _promocaoContext.SaveChangesAsync();
         }
 
         public async Task Atualizar(Promocao promocao)
         {
             var entity = _mapper.Map<PromocaoEntity>(promocao);
             _promocaoContext.Promocoes.Update(entity);
+            await _promocaoContext.SaveChangesAsync();
         }
 
         public Task<IEnumerable<Promocao>> Obter()
@@ -46,16 +47,17 @@ namespace Service.DrivenAdapters.DatabaseAdapters.Adapters.Promocoes
             return Task.FromResult(promocao);
         }
 
-        public Task Remover(int promocaoId)
+        public async Task Remover(int promocaoId)
         {
             var entity = _promocaoContext.Promocoes.FirstOrDefault(p => p.Id.Equals(promocaoId));
 
             if (entity != null)
+            {
                 _promocaoContext.Promocoes.Remove(entity);
+                await _promocaoContext.SaveChangesAsync();
+            }
             else
                 throw new KeyNotFoundException($"Identificador da promocao inexistente. {promocaoId}");
-
-            return Task.CompletedTask;
         }
     }
 }

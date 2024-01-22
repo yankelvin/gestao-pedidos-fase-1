@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Domain.Models.Promocoes;
 using Domain.Ports.Driven.Promocoes;
-using Service.DrivenAdapters.DatabaseAdapters;
 using Service.DrivenAdapters.DatabaseAdapters.Entities.Promocoes;
 
 namespace Service.DrivenAdapters.DatabaseAdapters.Adapters.Promocoes
@@ -21,6 +20,14 @@ namespace Service.DrivenAdapters.DatabaseAdapters.Adapters.Promocoes
         {
             var entity = _mapper.Map<HistoricoUsoPromocaoEntity>(historicoUsoPromocao);
             await _promocaoContext.HistoricosUsoPromocoes.AddAsync(entity);
+            await _promocaoContext.SaveChangesAsync();
+        }
+
+        public Task<IEnumerable<HistoricoUsoPromocao>> ObterPorCliente(int clienteId)
+        {
+            var entities = _promocaoContext.HistoricosUsoPromocoes.Where(i => i.idcliente.Equals(clienteId));
+            var historico = _mapper.Map<IEnumerable<HistoricoUsoPromocao>>(entities);
+            return Task.FromResult(historico);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Domain.Models.Produtos
+namespace Domain.Models.Produtos
 {
     public class Produto : Modelo
     {

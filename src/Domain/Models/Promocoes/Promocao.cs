@@ -5,6 +5,12 @@
         public string Texto { get; private set; }
         public bool Status { get; private set; }
 
+        public Promocao(string texto, bool status)
+        {
+            Texto = texto;
+            Status = status;
+        }
+
         public Promocao(int id, string texto, bool status)
         {
             Id = id;

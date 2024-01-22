@@ -15,6 +15,7 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddUseCases();
 builder.Services.AddAutoMapper(Assembly.Load(typeof(Program).Assembly.GetName().Name!));
 builder.Services.AddDatabase(appSettings.DatabaseConnection);
+builder.Services.AddSwaggerGen();
 
 WebApplication app = builder.Build();
 
@@ -25,6 +26,14 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllers();
 });
 
-// 4. Application startup step
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+        options.RoutePrefix = string.Empty;
+    });
+}
 
 app.Run();
