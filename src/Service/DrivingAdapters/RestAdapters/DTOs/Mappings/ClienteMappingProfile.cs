@@ -1,0 +1,19 @@
+using AutoMapper;
+using Service.DrivingAdapters.RestAdapters.DTOs.Cliente;
+
+namespace Service.DrivingAdapters.RestAdapters.DTOs.Mappings;
+
+public class ClienteMappingProfile : Profile 
+{
+    public ClienteMappingProfile()
+    {
+        CreateMap<Domain.Models.Clientes.Cliente, CadastroClienteDto>();
+        CreateMap<CadastroClienteDto, Domain.Models.Clientes.Cliente>();
+
+        CreateMap<Domain.Models.Clientes.Cliente, ClienteDTO>();
+        CreateMap<ClienteDTO, Domain.Models.Clientes.Cliente>();
+        
+        CreateMap<UpdateClienteDTO, Domain.Models.Clientes.Cliente>();
+        CreateMap<Domain.Models.Clientes.Cliente, UpdateClienteDTO>();
+    }
+}
