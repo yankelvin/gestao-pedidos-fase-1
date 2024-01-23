@@ -18,12 +18,12 @@ namespace Domain.Models.Promocoes
             Desconto = desconto;
         }
 
-        public double ObterPrecoComDesconto()
+        public decimal ObterPrecoComDesconto()
         {
             if (Desconto < 1)
-                return Convert.ToDecimal(Produto.Preco) - Convert.ToDecimal(Produto.Preco) * Desconto;
+                return Convert.ToDecimal(Produto.Preco) - Convert.ToDecimal(Produto.Preco) * Convert.ToDecimal(Desconto);
 
-            return Convert.ToDecimal(Produto.Preco) - Desconto;
+            return Convert.ToDecimal(Produto.Preco) - Convert.ToDecimal(Desconto);
         }
     }
 }
