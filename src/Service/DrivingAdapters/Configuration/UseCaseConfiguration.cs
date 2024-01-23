@@ -1,6 +1,8 @@
-﻿using Domain.Ports.Driving.Produtos;
+﻿using Domain.Ports.Driving.Clientes;
+using Domain.Ports.Driving.Produtos;
 using Domain.Ports.Driving.Promocoes;
 using Domain.Ports.Driving.Usuarios;
+using Domain.UseCases.Clientes;
 using Domain.UseCases.Produtos;
 using Domain.UseCases.Promocoes;
 using Domain.UseCases.Usuarios;
@@ -35,6 +37,9 @@ namespace Service.DrivingAdapters.Configuration
             services.AddTransient<IRemoverUsuario, RemoverUsuario>();
             services.AddTransient<IAtualizarUsuario, AtualizarUsuario>();
             services.AddTransient<ICadastrarUsuario, CadastrarUsuario>();
+
+
+            services.AddTransient<ICadastrarCliente, CadastrarCliente>();
 
             return services;
         }

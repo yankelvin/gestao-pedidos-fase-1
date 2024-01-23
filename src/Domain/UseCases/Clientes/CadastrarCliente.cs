@@ -1,16 +1,23 @@
 using Domain.Models.Clientes;
+using Domain.Ports.Driven.Clientes;
 using Domain.Ports.Driving.Clientes;
 
 namespace Domain.UseCases.Clientes;
 
 public class CadastrarCliente : ICadastrarCliente
 {
-    //private readonly 
-    
-    public Task Executar(Cliente cliente)
+    private readonly IClientePersistenceAdapterPort _clientePersistenceAdapterPort;
+
+    public CadastrarCliente(IClientePersistenceAdapterPort clientePersistenceAdapterPort)
     {
-        //Verifica se num ja existe CPF
+        _clientePersistenceAdapterPort = clientePersistenceAdapterPort;
+    }
+
+    public async Task Executar(Cliente cliente)
+    {
+        if (_clientePersistenceAdapterPort.Exists(cliente.CPF))
+            throw new ArgumentException("Usuário já cadastrado");
         
-        //Cadastra
+        await _clientePersistenceAdapterPort.InsertAsync(cliente);
     }
 }

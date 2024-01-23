@@ -4,5 +4,5 @@ namespace Domain.Ports.Driving.Clientes;
 
 public interface IObterCliente
 {
-    Task<Cliente> Executar(string cpf);
+    Cliente? Executar(string cpf);
 }

@@ -1,4 +1,5 @@
 using AutoMapper;
+using Service.DrivenAdapters.DataBaseAdapters.Entities.Clientes;
 using Service.DrivingAdapters.RestAdapters.DTOs.Cliente;
 
 namespace Service.DrivingAdapters.RestAdapters.DTOs.Mappings;
@@ -15,5 +16,7 @@ public class ClienteMappingProfile : Profile
         
         CreateMap<UpdateClienteDTO, Domain.Models.Clientes.Cliente>();
         CreateMap<Domain.Models.Clientes.Cliente, UpdateClienteDTO>();
+        
+        CreateMap<ClienteEntity, Domain.Models.Clientes.Cliente>().ReverseMap();
     }
 }

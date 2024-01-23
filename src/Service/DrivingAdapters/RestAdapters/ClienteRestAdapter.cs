@@ -34,11 +34,9 @@ public class ClienteRestAdapter : ControllerBase
     /// </summary>
     /// <param name="dto"></param>
     /// <response code="200">Cliente cadastrado</response>
-    /// <response code="400">Dados inválidos</response>
-    /// <response code="409">Cliente já cadastrado</response>
+    /// <response code="400">Cliente já cadastrado</response>
     [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(void), StatusCodes.Status409Conflict)]
+    [ProducesResponseType(typeof(void), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> Post([FromBody] CadastroClienteDto dto)
     {
         var cliente = _mapper.Map<Cliente>(dto);
@@ -56,9 +54,13 @@ public class ClienteRestAdapter : ControllerBase
     /// <response code="404">Cliente não encontrado</response>
     [ProducesResponseType(typeof(ClienteDTO), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
-    public async Task<ClienteDTO> Get([FromQuery] string cpf)
+    public ActionResult<ClienteDTO> Get([FromQuery] string cpf)
     {
-        var cliente = await _obterCliente.Executar(cpf);
+        var cliente = _obterCliente.Executar(cpf);
+
+        if (cliente is null)
+            return NotFound("Cliente não encontrado");
+        
         return _mapper.Map<ClienteDTO>(cliente);
     }
 
