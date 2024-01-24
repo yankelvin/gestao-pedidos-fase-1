@@ -14,8 +14,8 @@ public class ClienteMappingProfile : Profile
         CreateMap<Domain.Models.Clientes.Cliente, ClienteDTO>();
         CreateMap<ClienteDTO, Domain.Models.Clientes.Cliente>();
         
-        CreateMap<UpdateClienteDTO, Domain.Models.Clientes.Cliente>();
-        CreateMap<Domain.Models.Clientes.Cliente, UpdateClienteDTO>();
+        CreateMap<AtualizarClienteDTO, Domain.Models.Clientes.Cliente>();
+        CreateMap<Domain.Models.Clientes.Cliente, AtualizarClienteDTO>();
         
         CreateMap<ClienteEntity, Domain.Models.Clientes.Cliente>().ReverseMap();
     }

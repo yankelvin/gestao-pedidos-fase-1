@@ -15,6 +15,6 @@ public class ObterCliente : IObterCliente
 
     public Cliente? Executar(string cpf)
     {
-        return _clientePersistenceAdapterPort.FindByCpf(cpf);
+        return _clientePersistenceAdapterPort.ObterPorCpf(cpf);
     }
 }

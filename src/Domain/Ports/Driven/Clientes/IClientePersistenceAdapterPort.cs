@@ -4,7 +4,10 @@ namespace Domain.Ports.Driven.Clientes;
 
 public interface IClientePersistenceAdapterPort
 {
-    Cliente? FindByCpf(string cpf);
-    bool Exists(string cpf);
-    Task InsertAsync(Cliente cliente);
+    Cliente? ObterPorCpf(string cpf);
+    bool Existe(int id);
+    bool ExistePorCpf(string cpf);
+    Task InserirAsync(Cliente cliente);
+    bool Deletar(int id);
+    bool Atualizar(Cliente cliente);
 }

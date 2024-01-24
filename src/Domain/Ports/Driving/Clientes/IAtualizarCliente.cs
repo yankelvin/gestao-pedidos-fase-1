@@ -4,5 +4,5 @@ namespace Domain.Ports.Driving.Clientes;
 
 public interface IAtualizarCliente
 {
-    Task Executar(Cliente cliente);
+    bool Executar(Cliente cliente);
 }

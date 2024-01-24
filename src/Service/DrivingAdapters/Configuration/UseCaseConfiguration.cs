@@ -38,8 +38,10 @@ namespace Service.DrivingAdapters.Configuration
             services.AddTransient<IAtualizarUsuario, AtualizarUsuario>();
             services.AddTransient<ICadastrarUsuario, CadastrarUsuario>();
 
-
             services.AddTransient<ICadastrarCliente, CadastrarCliente>();
+            services.AddTransient<IObterCliente, ObterCliente>();
+            services.AddTransient<IDeletarCliente, DeletarCliente>();
+            services.AddTransient<IAtualizarCliente, AtualizarCliente>();
 
             return services;
         }

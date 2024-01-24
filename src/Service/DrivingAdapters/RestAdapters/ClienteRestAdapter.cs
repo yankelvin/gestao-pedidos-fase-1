@@ -72,11 +72,14 @@ public class ClienteRestAdapter : ControllerBase
     /// <response code="404">Cliente não encontrado</response>
     [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
-    public async Task<ActionResult> Delete([FromBody] int id)
+    public ActionResult Delete([FromBody] int id)
     {
-        await _deletarCliente.Executar(id);
+        var sucesso = _deletarCliente.Executar(id);
+        
+        if(sucesso)
+            return Ok("Cliente deletado com sucesso!");
 
-        return Ok("Cliente deletado");
+        return NotFound("Cliente não encontrado");
     }
     
     /// <summary>
@@ -84,16 +87,17 @@ public class ClienteRestAdapter : ControllerBase
     /// </summary>
     /// <param name="id"></param>
     /// <response code="200">Cliente atualizado</response>
-    /// <response code="400">Dados inválidos</response>
     /// <response code="404">Cliente não encontrado</response>
     [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(void), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
-    public async Task<ActionResult> Put([FromBody] UpdateClienteDTO dto)
+    public ActionResult Put([FromBody] AtualizarClienteDTO dto)
     {
         var cliente = _mapper.Map<Cliente>(dto);
-        await _atualizarCliente.Executar(cliente);
+        var sucesso = _atualizarCliente.Executar(cliente);
+        
+        if(sucesso)
+            return Ok("Cliente atualizado");
 
-        return Ok("Cliente atualizado");
+        return NotFound("Cliente não encontrado");
     }
 }
