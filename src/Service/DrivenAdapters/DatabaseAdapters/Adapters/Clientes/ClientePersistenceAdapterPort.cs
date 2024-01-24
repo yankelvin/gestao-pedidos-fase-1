@@ -39,7 +39,8 @@ public class ClientePersistenceAdapterPort : IClientePersistenceAdapterPort
     public async Task InserirAsync(Cliente cliente)
     {
         var entity = _mapper.Map<ClienteEntity>(cliente);
-        await _clienteContext.Clientes.AddAsync(entity);        
+        await _clienteContext.Clientes.AddAsync(entity);
+        await _clienteContext.SaveChangesAsync();
     }
 
     public bool Deletar(int id)
@@ -50,6 +51,7 @@ public class ClientePersistenceAdapterPort : IClientePersistenceAdapterPort
             return false;
         
         _clienteContext.Clientes.Remove(entity);
+        _clienteContext.SaveChanges();
         return true;
     }
 
@@ -61,6 +63,7 @@ public class ClientePersistenceAdapterPort : IClientePersistenceAdapterPort
             return false;
         
         _clienteContext.Update(cliente);
+        _clienteContext.SaveChanges();
         return true;
     }
 }

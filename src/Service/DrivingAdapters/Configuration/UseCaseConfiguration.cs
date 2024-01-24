@@ -1,8 +1,11 @@
-﻿using Domain.Ports.Driving.Clientes;
+﻿using Domain.Ports.Driven.Pedidos;
+using Domain.Ports.Driving.Clientes;
+using Domain.Ports.Driving.Pedidos;
 using Domain.Ports.Driving.Produtos;
 using Domain.Ports.Driving.Promocoes;
 using Domain.Ports.Driving.Usuarios;
 using Domain.UseCases.Clientes;
+using Domain.UseCases.Pedidos;
 using Domain.UseCases.Produtos;
 using Domain.UseCases.Promocoes;
 using Domain.UseCases.Usuarios;
@@ -42,7 +45,14 @@ namespace Service.DrivingAdapters.Configuration
             services.AddTransient<IObterCliente, ObterCliente>();
             services.AddTransient<IDeletarCliente, DeletarCliente>();
             services.AddTransient<IAtualizarCliente, AtualizarCliente>();
-
+            
+            services.AddTransient<IObterPedido, ObterPedido>();
+            services.AddTransient<ICadastrarPedido, CadastrarPedido>();
+            services.AddTransient<IObterTodosPedidos, ObterTodosPedidos>();
+            services.AddTransient<IDeletarPedido, DeletarPedido>();
+            services.AddTransient<IAtualizarPedido, AtualizarPedido>();
+            services.AddTransient<IProximaEtapaPedido, ProximaEtapaPedido>();
+            
             return services;
         }
     }
