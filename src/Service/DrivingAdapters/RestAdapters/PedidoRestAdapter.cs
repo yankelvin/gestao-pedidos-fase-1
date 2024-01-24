@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using AutoMapper;
 using Domain.Enumerators;
 using Domain.Models.Pedidos;
@@ -8,6 +9,9 @@ using Service.DrivingAdapters.RestAdapters.DTOs.Pedido;
 
 namespace Service.DrivingAdapters.RestAdapters;
 
+[ApiController]
+[Produces(MediaTypeNames.Application.Json)]
+[Route("api/pedido")]
 public class PedidoRestAdapter : ControllerBase
 {
     private readonly IMapper _mapper;
@@ -35,6 +39,7 @@ public class PedidoRestAdapter : ControllerBase
     /// </summary>
     /// <param name="dto"></param>
     /// <response code="200">Pedido cadastrado</response>
+    [HttpPost]
     [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
     public ActionResult Post([FromBody] CadastroPedidoDto dto)
     {
@@ -51,6 +56,7 @@ public class PedidoRestAdapter : ControllerBase
     /// <param name="id"></param>
     /// <response code="200">Dados do cliente encontrado</response>
     /// <response code="404">Cliente não encontrado</response>
+    [HttpGet("{id:int:required}")]
     [ProducesResponseType(typeof(PedidoDTO), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
     public ActionResult<PedidoDTO> Get([FromQuery] int id)
@@ -68,6 +74,7 @@ public class PedidoRestAdapter : ControllerBase
     /// </summary>
     /// <param name="id"></param>
     /// <response code="200">Lista de pedidos</response>
+    [HttpGet("get-all")]
     [ProducesResponseType(typeof(IEnumerable<PedidoDTO>), StatusCodes.Status200OK)]
     public IEnumerable<PedidoDTO> GetAll([FromQuery] int? idCliente, StatusPedido? statusPedido)
     {
@@ -82,6 +89,7 @@ public class PedidoRestAdapter : ControllerBase
     /// <param name="id"></param>
     /// <response code="200">Pedido deletado</response>
     /// <response code="404">Pedido não encontrado</response>
+    [HttpDelete("{id:int:required}")]
     [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
     public ActionResult Delete([FromBody] int id)
@@ -100,6 +108,7 @@ public class PedidoRestAdapter : ControllerBase
     /// <param name="id"></param>
     /// <response code="200">Pedido atualizado</response>
     /// <response code="404">Pedido não encontrado</response>
+    [HttpPut]
     [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
     public ActionResult Put([FromBody] AtualizarPedidoDTO dto)
@@ -119,6 +128,7 @@ public class PedidoRestAdapter : ControllerBase
     /// <param name="id"></param>
     /// <response code="200">Pedido atualizado</response>
     /// <response code="404">Pedido não encontrado</response>
+    [HttpPost("next-step/{idPedido:int:required}")]
     [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
     public ActionResult NextStep([FromBody] int idPedido)

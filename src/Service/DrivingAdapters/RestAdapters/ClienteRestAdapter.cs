@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using AutoMapper;
 using Domain.Models.Clientes;
 using Domain.Ports.Driving.Clientes;
@@ -6,6 +7,9 @@ using Service.DrivingAdapters.RestAdapters.DTOs.Cliente;
 
 namespace Service.DrivingAdapters.RestAdapters;
 
+[ApiController]
+[Produces(MediaTypeNames.Application.Json)]
+[Route("api/cliente")]
 public class ClienteRestAdapter : ControllerBase
 {
     private readonly IMapper _mapper;
@@ -35,6 +39,7 @@ public class ClienteRestAdapter : ControllerBase
     /// <param name="dto"></param>
     /// <response code="200">Cliente cadastrado</response>
     /// <response code="400">Cliente já cadastrado</response>
+    [HttpPost]
     [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(void), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> Post([FromBody] CadastroClienteDto dto)
@@ -52,6 +57,7 @@ public class ClienteRestAdapter : ControllerBase
     /// <param name="cpf"></param>
     /// <response code="200">Dados do cliente encontrado</response>
     /// <response code="404">Cliente não encontrado</response>
+    [HttpGet("{cpf:int:required}")]
     [ProducesResponseType(typeof(ClienteDTO), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
     public ActionResult<ClienteDTO> Get([FromQuery] string cpf)
@@ -70,6 +76,7 @@ public class ClienteRestAdapter : ControllerBase
     /// <param name="id"></param>
     /// <response code="200">Cliente deletado</response>
     /// <response code="404">Cliente não encontrado</response>
+    [HttpDelete("{id:int:required}")]
     [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
     public ActionResult Delete([FromBody] int id)
@@ -88,6 +95,7 @@ public class ClienteRestAdapter : ControllerBase
     /// <param name="id"></param>
     /// <response code="200">Cliente atualizado</response>
     /// <response code="404">Cliente não encontrado</response>
+    [HttpPut]
     [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
     public ActionResult Put([FromBody] AtualizarClienteDTO dto)

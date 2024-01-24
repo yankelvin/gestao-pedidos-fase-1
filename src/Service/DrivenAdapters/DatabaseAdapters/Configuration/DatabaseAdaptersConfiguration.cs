@@ -1,5 +1,6 @@
 ﻿using Domain.Models.Clientes;
 using Domain.Ports.Driven.Clientes;
+using Domain.Ports.Driven.ItensPedido;
 using Domain.Ports.Driven.Pedidos;
 using Domain.Ports.Driven.Produtos;
 using Domain.Ports.Driven.Promocoes;
@@ -7,6 +8,7 @@ using Domain.Ports.Driven.Usuarios;
 using Microsoft.EntityFrameworkCore;
 using Service.DrivenAdapters.DatabaseAdapters;
 using Service.DrivenAdapters.DatabaseAdapters.Adapters.Clientes;
+using Service.DrivenAdapters.DatabaseAdapters.Adapters.ItensPedido;
 using Service.DrivenAdapters.DatabaseAdapters.Adapters.Pedidos;
 using Service.DrivenAdapters.DataBaseAdapters.Migrations;
 using Service.DrivenAdapters.DatabaseAdapters.Adapters.Promocoes;
@@ -38,6 +40,7 @@ namespace Service.DrivenAdapters.DataBaseAdapters.Configuration
             services.AddTransient<IUsuarioPersistencePort, UsuarioPersistenceAdapter>();
             services.AddTransient<IClientePersistenceAdapterPort, ClientePersistenceAdapterPort>();
             services.AddTransient<IPedidoPersistenceAdapterPort, PedidoPersistenceAdapterPort>();
+            services.AddTransient<IItensPedidoPersistenceAdapterPort, ItensPedidoPersistenceAdapterPort>();
             return services;
         }
     }
