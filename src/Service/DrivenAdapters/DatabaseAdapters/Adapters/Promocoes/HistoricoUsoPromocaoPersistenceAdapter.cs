@@ -25,7 +25,7 @@ namespace Service.DrivenAdapters.DatabaseAdapters.Adapters.Promocoes
 
         public Task<IEnumerable<HistoricoUsoPromocao>> ObterPorCliente(int clienteId)
         {
-            var entities = _promocaoContext.HistoricosUsoPromocoes.Where(i => i.idcliente.Equals(clienteId));
+            var entities = _promocaoContext.HistoricosUsoPromocoes.Where(i => i.idCliente.Equals(clienteId));
             var historico = _mapper.Map<IEnumerable<HistoricoUsoPromocao>>(entities);
             return Task.FromResult(historico);
         }

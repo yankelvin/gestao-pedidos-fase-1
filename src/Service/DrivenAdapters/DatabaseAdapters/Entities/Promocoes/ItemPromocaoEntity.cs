@@ -9,6 +9,6 @@ namespace Service.DrivenAdapters.DatabaseAdapters.Entities.Promocoes
     {
         public int idpromocao { get; set; }
         public int idproduto { get; set; }
-        public double desconto { get; set; }
+        public decimal desconto { get; set; }
     }
 }

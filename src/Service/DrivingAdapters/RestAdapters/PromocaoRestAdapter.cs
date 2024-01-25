@@ -4,6 +4,7 @@ using Domain.Ports.Driving.Promocoes;
 using Microsoft.AspNetCore.Mvc;
 using Service.DrivingAdapters.RestAdapters.DTOs;
 using System.Net.Mime;
+using Domain.Ports.Driven.Promocoes;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 
 namespace Service.DrivingAdapters.RestAdapters
@@ -18,15 +19,17 @@ namespace Service.DrivingAdapters.RestAdapters
         private readonly ICadastrarPromocao _cadastrarPromocao;
         private readonly IAtualizarPromocao _atualizarPromocao;
         private readonly IRemoverPromocao _removerPromocao;
+        private readonly IRegistrarUsoPromocao _registrarUsoPromocao;
 
         public PromocaoRestAdapter(IMapper mapper, ICadastrarPromocao cadastrarPromocao, IObterPromocao obterPromocao,
-                                 IAtualizarPromocao atualizarPromocao, IRemoverPromocao removerPromocao)
+                                 IAtualizarPromocao atualizarPromocao, IRemoverPromocao removerPromocao, IRegistrarUsoPromocao registrarUsoPromocao)
         {
             _mapper = mapper;
             _obterPromocao = obterPromocao;
             _cadastrarPromocao = cadastrarPromocao;
             _atualizarPromocao = atualizarPromocao;
             _removerPromocao = removerPromocao;
+            _registrarUsoPromocao = registrarUsoPromocao;
         }
 
         /// <summary>
@@ -97,6 +100,27 @@ namespace Service.DrivingAdapters.RestAdapters
         public async Task Delete(int promocaoId)
         {
             await _removerPromocao.Executar(promocaoId);
+        }
+        
+        /// <summary>
+        /// Register uso da promoçao pelo cliente
+        /// </summary>
+        /// <response code="200">Uso registrado</response>
+        [HttpPost("{clienteId:int:required}/{promocaoId:int:required}")]
+        [ProducesResponseType(typeof(PromocaoDTO), Status200OK)]
+        [ProducesResponseType(typeof(void), Status404NotFound)]
+        public async Task<ActionResult> RegistrarUsoPromocao(int clienteId, int promocaoId)
+        {
+            try
+            {
+                await _registrarUsoPromocao.Executar(clienteId, promocaoId);
+                return Ok("Registrado com sucesso!");
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex);
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
