@@ -14,27 +14,27 @@ public class ProximaEtapaPedido : IProximaEtapaPedido
         _pedidoPersistenceAdapter = pedidoPersistenceAdapter;
     }
     
-    public StatusPedido Executar(int idPedido)
+    public Status Executar(int idPedido)
     {
         var pedido = _pedidoPersistenceAdapter.Obter(idPedido);
 
-        pedido.StatusPedido = ProximoEtapaStatus(pedido.StatusPedido);
+        pedido.Status = ProximoEtapaStatus(pedido.Status);
         
-        if (pedido.StatusPedido is StatusPedido.Pronto)
-            pedido.HoraFim = DateTime.Now;
+        if (pedido.Status is Status.Pronto)
+            pedido.HorarioFim = DateTime.Now;
         
         _pedidoPersistenceAdapter.Atualizar(pedido);
 
-        return pedido.StatusPedido;
+        return pedido.Status;
     }
 
-    private StatusPedido ProximoEtapaStatus(StatusPedido statusPedido)
+    private Status ProximoEtapaStatus(Status status)
     {
-        if (statusPedido is StatusPedido.Recolhido)
-            return StatusPedido.Recolhido;
-        
-        var novoStatus = (int)statusPedido++;
+        if (status is Status.Recolhido)
+            return Status.Recolhido;
 
-        return (StatusPedido)novoStatus;
+        var statusAtual = (int)status; 
+        
+        return (Status)(statusAtual + 1);
     }
 }

@@ -14,7 +14,7 @@ public class ObterTodosPedidos : IObterTodosPedidos
         _pedidoPersistenceAdapter = pedidoPersistenceAdapter;
     }
     
-    public IEnumerable<Pedido> Executar(int? idCliente, StatusPedido? statusPedido)
+    public IEnumerable<Pedido> Executar(int? idCliente, Status? statusPedido)
     {
         return _pedidoPersistenceAdapter.ObterTodosPedidos(idCliente, statusPedido);
     }

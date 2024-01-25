@@ -4,5 +4,5 @@ namespace Domain.Ports.Driving.Pedidos;
 
 public interface ICadastrarPedido
 {
-    void Executar(Pedido pedido, IEnumerable<int> produtoList);
+    Task ExecutarAsync(int idCliente, IEnumerable<int> produtoList);
 }

@@ -10,6 +10,12 @@ public class ClientePersistenceAdapterPort : IClientePersistenceAdapterPort
     private readonly IMapper _mapper;
     private readonly ClienteContext _clienteContext;
 
+    public ClientePersistenceAdapterPort(IMapper mapper, ClienteContext clienteContext)
+    {
+        _mapper = mapper;
+        _clienteContext = clienteContext;
+    }
+
     public Cliente? Obter(int id)
     {
          var entity = ObterSemMapear(id);
@@ -32,7 +38,8 @@ public class ClientePersistenceAdapterPort : IClientePersistenceAdapterPort
         return _mapper.Map<Cliente>(entity);
     }
 
-    public bool Existe(int id) => Obter(id) is not null; 
+    public bool Existe(int id) => Obter(id) is not null;
+    public bool NaoExiste(int id) => Existe(id) is false;
 
     public bool ExistePorCpf(string cpf) => ObterPorCpf(cpf) is not null;
     
@@ -62,8 +69,19 @@ public class ClientePersistenceAdapterPort : IClientePersistenceAdapterPort
         if (entity is null) 
             return false;
         
-        _clienteContext.Update(cliente);
+        AtualizarCamposEntity(cliente, entity);
+
+        _clienteContext.Clientes.Update(entity);
         _clienteContext.SaveChanges();
         return true;
+    }
+
+    private static void AtualizarCamposEntity(Cliente cliente, ClienteEntity entity)
+    {
+        entity.CPF = cliente.CPF;
+        entity.Nome = cliente.Nome;
+        entity.Aniversario = cliente.Aniversario;
+        entity.Email = cliente.Email;
+        entity.Telefone = cliente.Telefone;
     }
 }

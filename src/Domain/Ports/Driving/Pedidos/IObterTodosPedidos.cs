@@ -5,5 +5,5 @@ namespace Domain.Ports.Driving.Pedidos;
 
 public interface IObterTodosPedidos
 {
-    IEnumerable<Pedido> Executar(int? idCliente, StatusPedido? statusPedido);
+    IEnumerable<Pedido> Executar(int? idCliente, Status? statusPedido);
 }

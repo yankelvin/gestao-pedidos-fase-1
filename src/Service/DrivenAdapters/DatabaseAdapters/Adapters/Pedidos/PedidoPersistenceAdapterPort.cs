@@ -16,8 +16,7 @@ public class PedidoPersistenceAdapterPort : IPedidoPersistenceAdapterPort
         _mapper = mapper;
         _pedidoContext = pedidoContext;
     }
-
-
+    
     public int Inserir(Pedido pedido)
     {
         var pedidoEntity = _mapper.Map<PedidoEntity>(pedido);
@@ -36,7 +35,7 @@ public class PedidoPersistenceAdapterPort : IPedidoPersistenceAdapterPort
         return _mapper.Map<Pedido>(entity);
     }
 
-    public IEnumerable<Pedido> ObterTodosPedidos(int? idCliente, StatusPedido? statusPedido)
+    public IEnumerable<Pedido> ObterTodosPedidos(int? idCliente, Status? statusPedido)
     {
         var query = _pedidoContext
             .Pedidos
@@ -46,7 +45,7 @@ public class PedidoPersistenceAdapterPort : IPedidoPersistenceAdapterPort
             query = query.Where(p => p.IdCliente.Equals(idCliente));
 
         if (statusPedido is not null)
-            query = query.Where(p => p.StatusPedido.Equals(statusPedido));
+            query = query.Where(p => p.Status.Equals(statusPedido));
         
         var result = query.ToList();
 
@@ -67,12 +66,18 @@ public class PedidoPersistenceAdapterPort : IPedidoPersistenceAdapterPort
 
     public bool Atualizar(Pedido pedido)
     {
-        var entity = ObterSemMapear(pedido.Id);
+        var pedidoAnterior = ObterSemMapear(pedido.Id);
 
-        if (entity is null) 
+        if (pedidoAnterior is null) 
             return false;
+
+        pedidoAnterior.IdCliente = pedido.IdCliente;
+        pedidoAnterior.Status = pedido.Status;
+        pedidoAnterior.HorarioInicio = pedido.HorarioInicio;
+        pedidoAnterior.HorarioFim = pedido.HorarioFim;
+        pedidoAnterior.ValorPedido = pedido.ValorPedido;
         
-        _pedidoContext.Update(pedido);
+        _pedidoContext.Pedidos.Update(pedidoAnterior);
         _pedidoContext.SaveChanges();
         return true;
     }

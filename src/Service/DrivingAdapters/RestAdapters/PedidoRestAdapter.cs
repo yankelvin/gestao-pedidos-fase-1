@@ -41,13 +41,18 @@ public class PedidoRestAdapter : ControllerBase
     /// <response code="200">Pedido cadastrado</response>
     [HttpPost]
     [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
-    public ActionResult Post([FromBody] CadastroPedidoDto dto)
+    public async Task<ActionResult> Post([FromBody] CadastroPedidoDto dto)
     {
-        var pedido = _mapper.Map<Pedido>(dto);
-
-        _cadastrarPedido.Executar(pedido, dto.Produtos);
+        try
+        {
+            await _cadastrarPedido.ExecutarAsync(dto.IdCliente, dto.Produtos);
+            return Ok("Pedido Cadastrado");
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(ex.Message);
+        }
         
-        return Ok("Pedido Cadastrado");
     }
     
     /// <summary>
@@ -59,7 +64,7 @@ public class PedidoRestAdapter : ControllerBase
     [HttpGet("{id:int:required}")]
     [ProducesResponseType(typeof(PedidoDTO), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
-    public ActionResult<PedidoDTO> Get([FromQuery] int id)
+    public ActionResult<PedidoDTO> Get( int id)
     {
         var pedido = _obterPedido.Executar(id);
 
@@ -76,7 +81,7 @@ public class PedidoRestAdapter : ControllerBase
     /// <response code="200">Lista de pedidos</response>
     [HttpGet("get-all")]
     [ProducesResponseType(typeof(IEnumerable<PedidoDTO>), StatusCodes.Status200OK)]
-    public IEnumerable<PedidoDTO> GetAll([FromQuery] int? idCliente, StatusPedido? statusPedido)
+    public IEnumerable<PedidoDTO> GetAll([FromQuery] int? idCliente, Status? statusPedido)
     {
         var listaPedidos = _obterTodosPedidos.Executar(idCliente, statusPedido);
         
@@ -92,7 +97,7 @@ public class PedidoRestAdapter : ControllerBase
     [HttpDelete("{id:int:required}")]
     [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
-    public ActionResult Delete([FromBody] int id)
+    public ActionResult Delete(int id)
     {
         var sucesso = _deletarPedido.Executar(id);
         
@@ -131,7 +136,7 @@ public class PedidoRestAdapter : ControllerBase
     [HttpPost("next-step/{idPedido:int:required}")]
     [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
-    public ActionResult NextStep([FromBody] int idPedido)
+    public ActionResult NextStep(int idPedido)
     {
         var novoStatus = _proximaEtapaPedido.Executar(idPedido);
         

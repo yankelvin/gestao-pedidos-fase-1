@@ -5,9 +5,9 @@ namespace Domain.Models.Pedidos;
 public class Pedido : Modelo
 {
     public DateTime DataPedido { get; set; }
-    public StatusPedido StatusPedido { get; set; }
-    public int IdCliente { get; private set;}
-    public DateTime HoraInicio { get; set; }
-    public DateTime HoraFim { get; set; }
-    public decimal ValorPedido { get; private set; }
+    public Status Status { get; set; }
+    public int IdCliente { get; set;}
+    public DateTime HorarioInicio { get; set; }
+    public DateTime HorarioFim { get; set; }
+    public decimal ValorPedido { get; set; }
 }

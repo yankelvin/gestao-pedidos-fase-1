@@ -1,6 +1,6 @@
 namespace Domain.Enumerators;
 
-public enum StatusPedido
+public enum Status
 {
     Solicitado,
     EmPreparo,

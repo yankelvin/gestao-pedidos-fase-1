@@ -13,5 +13,6 @@ public class PedidoMappingProfile : Profile
         CreateMap<Domain.Models.Pedidos.Pedido, PedidoEntity>().ReverseMap();
         
         CreateMap<Domain.Models.Pedidos.Pedido, PedidoDTO>().ReverseMap();
+        CreateMap<Domain.Models.Pedidos.Pedido, CadastroPedidoDto>().ReverseMap();
     }
 }

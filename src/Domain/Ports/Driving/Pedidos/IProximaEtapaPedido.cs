@@ -4,5 +4,5 @@ namespace Domain.Ports.Driving.Pedidos;
 
 public interface IProximaEtapaPedido
 {
-    StatusPedido Executar(int idPedido);
+    Status Executar(int idPedido);
 }

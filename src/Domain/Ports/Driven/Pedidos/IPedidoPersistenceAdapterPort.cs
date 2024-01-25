@@ -11,5 +11,5 @@ public interface IPedidoPersistenceAdapterPort
     bool Atualizar(Pedido pedido);
     IEnumerable<Pedido> ObterPorCliente(int? idCliente);
     public void SaveChanges();
-    IEnumerable<Pedido> ObterTodosPedidos(int? idCliente, StatusPedido? statusPedido);
+    IEnumerable<Pedido> ObterTodosPedidos(int? idCliente, Status? statusPedido);
 }

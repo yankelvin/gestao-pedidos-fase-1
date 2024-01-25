@@ -60,7 +60,7 @@ public class ClienteRestAdapter : ControllerBase
     [HttpGet("{cpf:int:required}")]
     [ProducesResponseType(typeof(ClienteDTO), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
-    public ActionResult<ClienteDTO> Get([FromQuery] string cpf)
+    public ActionResult<ClienteDTO> Get(string cpf)
     {
         var cliente = _obterCliente.Executar(cpf);
 
@@ -79,7 +79,7 @@ public class ClienteRestAdapter : ControllerBase
     [HttpDelete("{id:int:required}")]
     [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
-    public ActionResult Delete([FromBody] int id)
+    public ActionResult Delete(int id)
     {
         var sucesso = _deletarCliente.Executar(id);
         
