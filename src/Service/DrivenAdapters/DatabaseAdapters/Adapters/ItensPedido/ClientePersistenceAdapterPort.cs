@@ -18,7 +18,12 @@ public class ItensPedidoPersistenceAdapterPort : IItensPedidoPersistenceAdapterP
     public void Insert(int pedidoId, IEnumerable<int> produtoList)
     {
         IEnumerable<ItensPedidoEntity> entity = produtoList.Select(MapItensPedido(pedidoId));
-        _itensPedidoContext.Pedidos.AddRange(entity);
+        _itensPedidoContext.ItensPedido.AddRange(entity);
+    }
+
+    public void SaveChanges()
+    {
+        _itensPedidoContext.SaveChanges();
     }
 
     private static Func<int, ItensPedidoEntity> MapItensPedido(int pedidoId)

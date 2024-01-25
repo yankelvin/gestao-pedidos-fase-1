@@ -6,5 +6,5 @@ namespace Service.DrivenAdapters.DatabaseAdapters;
 public class ItensPedidoContext : DbContext
 {
     public ItensPedidoContext(DbContextOptions<ItensPedidoContext> options) : base(options) { }
-    public DbSet<ItensPedidoEntity> Pedidos { get; set; }
+    public DbSet<ItensPedidoEntity> ItensPedido { get; set; }
 }

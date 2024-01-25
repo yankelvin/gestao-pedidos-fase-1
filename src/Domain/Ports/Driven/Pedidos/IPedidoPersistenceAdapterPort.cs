@@ -5,7 +5,7 @@ namespace Domain.Ports.Driven.Pedidos;
 
 public interface IPedidoPersistenceAdapterPort
 {
-    int Inserir(Pedido pedido);
+    void Inserir(Pedido pedido, IEnumerable<int> produtos);
     Pedido Obter(int id);
     bool Deletar(int id);
     bool Atualizar(Pedido pedido);

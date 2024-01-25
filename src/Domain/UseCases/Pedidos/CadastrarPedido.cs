@@ -31,11 +31,12 @@ public class CadastrarPedido : ICadastrarPedido
         
         var pedido = await ComplementaDadosPeddidoAsync(idCliente, produtoList);
 
-        var pedidoId = _pedidoPersistenceAdapterPort.Inserir(pedido);
-
-        _itensPedidoPersistenceAdapterPort.Insert(pedidoId, produtoList);
+        _pedidoPersistenceAdapterPort.Inserir(pedido, produtoList);
         
         _pedidoPersistenceAdapterPort.SaveChanges();
+
+        // _itensPedidoPersistenceAdapterPort.Insert(pedidoEntity, produtoList);
+        // _itensPedidoPersistenceAdapterPort.SaveChanges();
     }
 
     private async Task<Pedido> ComplementaDadosPeddidoAsync(int idCliente, IEnumerable<int> produtoIdList)

@@ -2,6 +2,7 @@ using AutoMapper;
 using Domain.Enumerators;
 using Domain.Models.Pedidos;
 using Domain.Ports.Driven.Pedidos;
+using Service.DrivenAdapters.DataBaseAdapters.Entities.ItensPedido;
 using Service.DrivenAdapters.DataBaseAdapters.Entities.Pedidos;
 
 namespace Service.DrivenAdapters.DatabaseAdapters.Adapters.Pedidos;
@@ -17,13 +18,24 @@ public class PedidoPersistenceAdapterPort : IPedidoPersistenceAdapterPort
         _pedidoContext = pedidoContext;
     }
     
-    public int Inserir(Pedido pedido)
+    public void Inserir(Pedido pedido, IEnumerable<int> produtoList)
     {
         var pedidoEntity = _mapper.Map<PedidoEntity>(pedido);
 
-        var pedidoId = _pedidoContext.Pedidos.Add(pedidoEntity);
+        var pedidoSaved = _pedidoContext.Pedidos.Add(pedidoEntity);
+        
+        IEnumerable<ItensPedidoEntity> itensPedidos = produtoList.Select(MapItensPedido(pedidoSaved.Entity));
 
-        return pedidoId.Entity.Id;
+        _pedidoContext.ItensPedidos.AddRange(itensPedidos);
+    }
+    
+    private static Func<int, ItensPedidoEntity> MapItensPedido(PedidoEntity pedido)
+    {
+        return idProduto => new ItensPedidoEntity()
+        {
+            Pedido = pedido,
+            IdProduto = idProduto
+        };
     }
     
     public PedidoEntity? ObterSemMapear(int id) => _pedidoContext.Pedidos.Find(id);
