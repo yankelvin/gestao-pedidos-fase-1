@@ -20,7 +20,7 @@ namespace Service.DrivingAdapters.RestAdapters.DTOs.Mappings
 
             CreateMap<HistoricoUsoPromocao, HistoricoUsoPromocaoDTO>();
             CreateMap<HistoricoUsoPromocao, HistoricoUsoPromocaoEntity>();
-            CreateMap<HistoricoUsoPromocaoEntity, HistoricoUsoPromocao>().ConstructUsing(p => new HistoricoUsoPromocao(p.idpromocao, p.idcliente, p.utilizado));
+            CreateMap<HistoricoUsoPromocaoEntity, HistoricoUsoPromocao>().ConstructUsing(p => new HistoricoUsoPromocao(p.idPromocao, p.idCliente, p.utilizado));
             CreateMap<HistoricoUsoPromocaoDTO, HistoricoUsoPromocao>().ConstructUsing(p => new HistoricoUsoPromocao(p.IdPromocao, p.IdCliente, p.Utilizado));
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Domain.Ports.Driven.Pedidos;
+using Domain.Ports.Driven.Promocoes;
 using Domain.Ports.Driving.Clientes;
 using Domain.Ports.Driving.Pedidos;
 using Domain.Ports.Driving.Produtos;
@@ -26,6 +27,7 @@ namespace Service.DrivingAdapters.Configuration
             services.AddTransient<IObterHistoricoUsoPromocao, ObterHistoricoUsoPromocao>();
             services.AddTransient<IRemoverItemPromocao, RemoverItemPromocao>();
             services.AddTransient<IRemoverPromocao, RemoverPromocao>();
+            services.AddTransient<IRegistrarUsoPromocao, RegistrarUsoPromocao>();
 
             services.AddTransient<IObterProduto, ObterProduto>();
             services.AddTransient<IObterCategoriaProduto, ObterCategoriaProduto>();
