@@ -3,11 +3,11 @@
     public class UsuarioDTO
     {
         public int Id { get; set; }
-        public string Nome { get; private set; }
-        public string Email { get; private set; }
-        public string Senha { get; private set; }
-        public string Tipo { get; private set; }
-        public bool Ativo { get; private set; }
+        public string Nome { get; set; }
+        public string Email { get; set; }
+        public string Senha { get; set; }
+        public int Tipo { get; set; }
+        public bool Ativo { get; set; }
     }
 
 }

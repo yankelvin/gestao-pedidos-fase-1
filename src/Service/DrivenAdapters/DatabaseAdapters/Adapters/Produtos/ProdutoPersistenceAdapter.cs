@@ -20,12 +20,14 @@ namespace Service.DrivenAdapters.DatabaseAdapters.Adapters.Produtos
         {
             var entity = _mapper.Map<ProdutoEntity>(produto);
             await _produtoContext.Produtos.AddAsync(entity);
+            await _produtoContext.SaveChangesAsync();
         }
 
         public async Task Atualizar(Produto produto)
         {
             var entity = _mapper.Map<ProdutoEntity>(produto);
             _produtoContext.Produtos.Update(entity);
+            await _produtoContext.SaveChangesAsync();
         }
 
         public Task<IEnumerable<Produto>> Obter()
@@ -45,16 +47,17 @@ namespace Service.DrivenAdapters.DatabaseAdapters.Adapters.Produtos
             return Task.FromResult(produto);
         }
 
-        public Task Remover(int produtoId)
+        public async Task Remover(int produtoId)
         {
             var entity = _produtoContext.Produtos.FirstOrDefault(p => p.Id.Equals(produtoId));
 
             if (entity != null)
+            {
                 _produtoContext.Produtos.Remove(entity);
+                await _produtoContext.SaveChangesAsync();
+            }
             else
                 throw new KeyNotFoundException($"Identificador do Produto inexistente. {produtoId}");
-
-            return Task.CompletedTask;
         }
 
         public Task<IEnumerable<Produto>> ObterPorCategoria(int categoriaId)

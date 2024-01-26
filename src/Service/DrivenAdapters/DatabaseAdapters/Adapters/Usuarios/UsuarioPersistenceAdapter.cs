@@ -20,12 +20,14 @@ namespace Service.DrivenAdapters.DatabaseAdapters.Adapters.Usuarios
         {
             var entity = _mapper.Map<UsuarioEntity>(usuario);
             await _usuarioContext.Usuarios.AddAsync(entity);
+            await _usuarioContext.SaveChangesAsync();
         }
 
         public async Task Atualizar(Usuario usuario)
         {
             var entity = _mapper.Map<UsuarioEntity>(usuario);
             _usuarioContext.Usuarios.Update(entity);
+            await _usuarioContext.SaveChangesAsync();
         }
 
         public Task<IEnumerable<Usuario>> Obter()
@@ -45,16 +47,17 @@ namespace Service.DrivenAdapters.DatabaseAdapters.Adapters.Usuarios
             return Task.FromResult(usuario);
         }
 
-        public Task Remover(int usuarioId)
+        public async Task Remover(int usuarioId)
         {
             var entity = _usuarioContext.Usuarios.FirstOrDefault(p => p.Id.Equals(usuarioId));
 
             if (entity != null)
+            {
                 _usuarioContext.Usuarios.Remove(entity);
-            else
+                await _usuarioContext.SaveChangesAsync();
+            }
+              else
                 throw new KeyNotFoundException($"Identificador do usuario inexistente. {usuarioId}");
-
-            return Task.CompletedTask;
         }
     }
 }
