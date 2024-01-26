@@ -5,7 +5,6 @@ using Service.DrivenAdapters.DataBaseAdapters.Entities;
 namespace Service.DrivenAdapters.DatabaseAdapters.Entities.Produtos
 {
     [Table("produto")]
-    [PrimaryKey(nameof(IdCategoria))]
     public class ProdutoEntity : Entity
     {
         public string Nome { get; set; }

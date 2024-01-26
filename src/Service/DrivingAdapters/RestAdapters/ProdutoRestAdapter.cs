@@ -19,11 +19,33 @@ namespace Service.DrivingAdapters.RestAdapters
         private readonly ICadastrarProduto _cadastrarProduto;
         private readonly IAtualizarProduto _atualizarProduto;
 
-        public ProdutoRestAdapter(IMapper mapper, ICadastrarProduto cadastrarProduto, IObterProduto obterProduto)
+        public ProdutoRestAdapter(
+            IMapper mapper,
+            IObterProduto obterProduto,
+            IRemoverProduto removerProduto,
+            ICadastrarProduto cadastrarProduto,
+            IAtualizarProduto atualizarProduto
+            )
         {
             _mapper = mapper;
-            _cadastrarProduto = cadastrarProduto;
             _obterProduto = obterProduto;
+            _removerProduto = removerProduto;
+            _cadastrarProduto = cadastrarProduto;
+            _atualizarProduto = atualizarProduto;
+        }
+
+        /// <summary>
+        /// Obter produtos
+        /// </summary>
+        /// <response code="200">OK, Produtos consultados</response>
+        /// <response code="404">Produtos nao encontrados</response>
+        [HttpGet]
+        [ProducesResponseType(typeof(ProdutoDTO), Status200OK)]
+        [ProducesResponseType(typeof(void), Status404NotFound)]
+        public async Task<IEnumerable<ProdutoDTO>> Get()
+        {
+            var produtos = await _obterProduto.Executar();
+            return _mapper.Map<IEnumerable<ProdutoDTO>>(produtos);
         }
 
         /// <summary>
@@ -37,20 +59,20 @@ namespace Service.DrivingAdapters.RestAdapters
         [ProducesResponseType(typeof(void), Status404NotFound)]
         public async Task<ProdutoDTO> Get(int produtoId)
         {
-            Produto produto = await _obterProduto.Executar(produtoId);
+            var produto = await _obterProduto.Executar(produtoId);
             return _mapper.Map<ProdutoDTO>(produto);
         }
 
         /// <summary>
         /// Obter produtos por id da categoria
         /// </summary>
-        /// <param name="categoriaId" example="432">Identificador da categoria para buscar</param>
+        /// <param name="Id" example="432">Identificador da categoria para buscar</param>
         /// <response code="200">OK, Produtos por categoria consultado</response>
         /// <response code="404">Produtos nao encontrados para categoria</response>
         [HttpGet("categoria/{categoriaId:int:required}")]
         [ProducesResponseType(typeof(ProdutoDTO), Status200OK)]
         [ProducesResponseType(typeof(void), Status404NotFound)]
-        public async Task<IEnumerable<ProdutoDTO>> GetPorCategoria(int categoriaId)
+        public async Task<IEnumerable<ProdutoDTO>> GetPor(int categoriaId)
         {
             var produtos = await _obterProduto.ExecutarPorCategoria(categoriaId);
             return _mapper.Map<IEnumerable<ProdutoDTO>>(produtos);
@@ -78,9 +100,9 @@ namespace Service.DrivingAdapters.RestAdapters
         [HttpPut]
         [ProducesResponseType(typeof(ProdutoDTO), Status200OK)]
         [ProducesResponseType(typeof(void), Status404NotFound)]
-        public async Task Put([FromBody] ProdutoDTO promocaoDTO)
+        public async Task Put([FromBody] ProdutoDTO produtoDTO)
         {
-            var produto = _mapper.Map<Produto>(promocaoDTO);
+            var produto = _mapper.Map<Produto>(produtoDTO);
             await _atualizarProduto.Executar(produto);
         }
 
