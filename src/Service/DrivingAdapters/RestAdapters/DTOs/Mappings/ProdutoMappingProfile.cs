@@ -10,8 +10,8 @@ namespace Service.DrivingAdapters.RestAdapters.DTOs.Mappings
         {
             CreateMap<Produto, ProdutoDTO>();
             CreateMap<Produto, ProdutoEntity>();
-            CreateMap<ProdutoEntity, Produto>().ConstructUsing(p => new Produto(p.Id, p.Nome, p.Ativo, p.IdCategoria, p.Preco));
-            CreateMap<ProdutoDTO, Produto>().ConstructUsing(p => new Produto(p.Id, p.Nome, p.Ativo, p.IdCategoria, p.Preco));
+            CreateMap<ProdutoEntity, Produto>().ConstructUsing(p => new Produto(p.Id, p.Nome, p.Status, p.IdCategoria, p.Preco));
+            CreateMap<ProdutoDTO, Produto>().ConstructUsing(p => new Produto(p.Id, p.Nome, p.Status, p.IdCategoria, p.Preco));
 
             CreateMap<CategoriaProduto, CategoriaProdutoDTO>();
             CreateMap<CategoriaProduto, CategoriaProdutoEntity>();
