@@ -8,8 +8,8 @@ namespace Service.DrivenAdapters.DatabaseAdapters.Entities.Produtos
     public class ProdutoEntity : Entity
     {
         public string Nome { get; set; }
-        public double Preco { get; set; }
-        public bool Ativo { get; set; }
+        public decimal Preco { get; set; }
+        public bool Status { get; set; }
         public int IdCategoria { get; set; }
     }
 }

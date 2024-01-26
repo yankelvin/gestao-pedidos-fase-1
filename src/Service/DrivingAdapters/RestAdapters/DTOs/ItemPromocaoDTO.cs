@@ -4,6 +4,6 @@
     {
         public int IdPromocao { get; set; }
         public int IdProduto { get; set; }
-        public double Desconto { get; set; }
+        public decimal Desconto { get; set; }
     }
 }

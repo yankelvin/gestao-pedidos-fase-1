@@ -1,6 +1,4 @@
-﻿using Domain.Exceptions;
-
-namespace Domain.Models.Clientes
+﻿namespace Domain.Models.Clientes
 {
     public class Cliente : Modelo
     {
